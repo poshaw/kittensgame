@@ -111,7 +111,7 @@ buildLists = setInterval(function() {
       for (var i = 0; i < list1.length; i++) {
           $(".btnContent:contains(" + list1[i] + ")").click();
       }
-      console.log("list1: " + list1);
+      // console.log("list1: " + list1);
     }
     else {
       for (var i = 0; i < list2.length; i++) {
