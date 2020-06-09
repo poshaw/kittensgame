@@ -1,31 +1,37 @@
 autoHunt = setInterval(function() {
-  // console.log("Hunting");
-  var catpower = gamePage.resPool.get('manpower');
-  if (catpower.value / catpower.maxValue > 0.95) {
-    gamePage.village.huntAll();
-    if (gamePage.workshop.getCraft('parchment').unlocked) {
-      var qty = (gamePage.resPool.get('furs').value/2)/175
-      gamePage.craft('parchment', qty);
-    }
-    if (gamePage.workshop.getCraft('manuscript').unlocked) {
-      if ( gamePage.resPool.get('manuscript').value < gamePage.resPool.get('parchment').value ) {
-        var qty = (gamePage.resPool.get('parchment').value/2)/25;
-        gamePage.craft('manuscript', qty);
-      }
-    }
-    if (gamePage.workshop.getCraft('compedium').unlocked) {
-      if ( gamePage.resPool.get('compedium').value < gamePage.resPool.get('manuscript').value ) {
-        var qty = (gamePage.resPool.get('manuscript').value/2)/50;
-        gamePage.craft('compedium', qty);
-      }
-    }
-    if (gamePage.workshop.getCraft('blueprint').unlocked) {
-      if ( gamePage.resPool.get('blueprint').value < gamePage.resPool.get('compedium').value ) {
-        var qty = (gamePage.resPool.get('compedium').value/2)/25;
-        gamePage.craft('blueprint', qty);
-      }
-    }
-  }
+	// console.log("Hunting");
+	var catpower = gamePage.resPool.get('manpower');
+	if (catpower.value / catpower.maxValue > 0.95) {
+		gamePage.village.huntAll();
+		if (gamePage.workshop.getCraft('parchment').unlocked) {
+			var qty = (gamePage.resPool.get('furs').value/2)/175
+			gamePage.craft('parchment', qty);
+		}
+		if (gamePage.workshop.getCraft('manuscript').unlocked) {
+			if ( gamePage.resPool.get('manuscript').value < gamePage.resPool.get('parchment').value ) {
+				var qtyP = (gamePage.resPool.get('parchment').value/2)/25;
+				var qtyQ = (gamePage.resPool.get('culture').value * 0.9 )/400;
+				var qty = Math.min(qtyP, qtyQ);
+				gamePage.craft('manuscript', qty);
+			}
+		}
+		if (gamePage.workshop.getCraft('compedium').unlocked) {
+			if ( gamePage.resPool.get('compedium').value < gamePage.resPool.get('manuscript').value ) {
+				var qtyM = (gamePage.resPool.get('manuscript').value/2)/50;
+				var qtyS = (gamePage.resPool.get('science').value*0.8)/10e3;
+				var qty = Math.min(qtyM, qtyS);
+				gamePage.craft('compedium', qty);
+			}
+		}
+		if (gamePage.workshop.getCraft('blueprint').unlocked) {
+			if ( gamePage.resPool.get('blueprint').value < gamePage.resPool.get('compedium').value ) {
+				var qtyC = (gamePage.resPool.get('compedium').value/2)/25;
+				var qtyS = (gamePage.resPool.get('science').value*0.8)/25e3;
+				var qty = Math.min(qtyC, qtyS);
+				gamePage.craft('blueprint', qty);
+			}
+		}
+	}
 }, 3*(1000+Math.floor(Math.random() * 20)) );
 
 autoCraft = setInterval(function() {
